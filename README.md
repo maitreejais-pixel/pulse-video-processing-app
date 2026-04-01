@@ -124,6 +124,16 @@ The entire application is deployed on Railway as a **single service**, where the
 
 ---
 
+## 💡 Usage Notes
+
+### Page Refresh & Video Status
+- **Refresh Behavior:** If you refresh the Dashboard, the video player may temporarily reset to a "Select a Video" state. This is expected as the application re-authenticates and re-fetches the latest safety status from the database.
+- **Verification:** After a refresh, simply select the video from your library again to see its updated **Safe** or **Flagged** status.
+- **Routing:** If you encounter a 404 on refresh in a production environment, ensure your hosting provider (e.g., Render) is configured to redirect all traffic to `index.html`.
+
+ ---
+
+
 ## 🧠 Interview Explanation
 
 This project demonstrates:
