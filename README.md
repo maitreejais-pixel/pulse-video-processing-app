@@ -143,6 +143,6 @@ This project demonstrates:
 * Secure authentication and RBAC implementation
 * Efficient video streaming using HTTP range requests
 * Cloud database integration using MongoDB Atlas
-* End-to-end deployment on Railway
+* End-to-end deployment on Render
 
 ---
