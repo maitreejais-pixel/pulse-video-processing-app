@@ -28,7 +28,10 @@ export default function Register() {
 
     try {
       // Endpoint matches your Node backend
-      await axios.post("http://localhost:5000/api/auth/register", {
+      const API_BASE_URL =
+        import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+      await axios.post(`${API_BASE_URL}/api/auth/register`, {
         name: `${formData.firstName} ${formData.lastName}`,
         email: formData.email,
         password: formData.password,
