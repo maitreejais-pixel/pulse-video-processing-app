@@ -18,7 +18,10 @@ const auth = require("./middleware/auth");
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
-  cors: { origin: "http://localhost:5173", methods: ["GET", "POST"] },
+  cors: {
+    origin: "*", // This allows any frontend to connect while you are testing
+    methods: ["GET", "POST"],
+  },
 });
 
 // Middleware
@@ -81,7 +84,10 @@ io.on("connection", (socket) => {
 
 app.set("io", io);
 
-// API Routes
+app.get("/", (req, res) => {
+  res.send("🚀 Pulse Backend is running and healthy!");
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/videos", videoRoutes);
 app.use("/api/upload", uploadRoutes);
