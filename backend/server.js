@@ -19,13 +19,19 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "*", // This allows any frontend to connect while you are testing
+    origin: "https://pulse-app-v0x9.onrender.com",
     methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://pulse-app-v0x9.onrender.com",
+    credentials: true,
+  }),
+);
 app.use(express.json());
 
 if (!fs.existsSync("./uploads")) {
