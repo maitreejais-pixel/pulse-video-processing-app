@@ -19,7 +19,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "https://pulse-app-v0x9.onrender.com",
+    origin: "https://pulse-frontend-1wzo.onrender.com",
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -28,7 +28,7 @@ const io = socketIo(server, {
 // Middleware
 app.use(
   cors({
-    origin: "https://pulse-app-v0x9.onrender.com",
+    origin: "https://pulse-frontend-1wzo.onrender.com",
     credentials: true,
   }),
 );
