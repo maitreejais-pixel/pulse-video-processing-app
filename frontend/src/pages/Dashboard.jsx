@@ -33,11 +33,14 @@ export default function Dashboard() {
           import.meta.env.VITE_API_URL || "http://localhost:5000";
 
         // 2. Use the variable in the request
-        const res = await axios.get(
-          `${API_BASE_URL}/api/videos/${currentVideoId}`,
-          { headers: { Authorization: `Bearer ${token}` } },
-        );
+        const id =
+          typeof currentVideoId === "object"
+            ? currentVideoId?._id
+            : currentVideoId;
 
+        const res = await axios.get(`${API_BASE_URL}/api/videos/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setStatus(res.data.status);
         setProgress(res.data.progress || 0);
       } catch (err) {
@@ -113,7 +116,7 @@ export default function Dashboard() {
           <section>
             <VideoList
               refreshTrigger={refreshKey}
-              onSelectVideo={(videoId) => setCurrentVideoId(videoId)}
+              onSelectVideo={(video) => setCurrentVideoId(video?._id || video)}
             />
           </section>
         </div>
