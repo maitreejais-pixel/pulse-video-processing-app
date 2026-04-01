@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 const VideoList = ({ onSelectVideo, refreshTrigger }) => {
   const [videos, setVideos] = useState([]);
   const [filter, setFilter] = useState("all");
@@ -9,7 +9,7 @@ const VideoList = ({ onSelectVideo, refreshTrigger }) => {
     const fetchVideos = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:5000/api/videos", {
+        const res = await axios.get(`${API_BASE_URL}/api/videos`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -27,7 +27,7 @@ const VideoList = ({ onSelectVideo, refreshTrigger }) => {
     if (!window.confirm("Are you sure you want to delete this video?")) return;
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/videos/${videoId}`, {
+      await axios.delete(`${API_BASE_URL}/api/videos/${videoId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setVideos(videos.filter((v) => v._id !== videoId));

@@ -18,21 +18,20 @@ export default function UploadVideo({ onUploadSuccess }) {
 
     setUploading(true);
     try {
-      // 1. Ensure we have the token (Context or LocalStorage)
       const authToken = token || localStorage.getItem("token");
 
-      const res = await axios.post(
-        "http://localhost:5000/api/upload",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data", // 2. Critical for files
-            Authorization: `Bearer ${authToken}`,
-          },
-        },
-      );
+      // 1. Define the dynamic URL for production
+      const API_BASE_URL =
+        import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-      // 3. Trigger success and clear the file
+      // 2. Use the variable in the POST request
+      const res = await axios.post(`${API_BASE_URL}/api/upload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
       onUploadSuccess(res.data.videoId);
       setFile(null);
     } catch (err) {
@@ -42,7 +41,6 @@ export default function UploadVideo({ onUploadSuccess }) {
       setUploading(false);
     }
   };
-
   return (
     <div className="p-6 bg-white rounded-xl shadow-md border border-gray-100">
       <form onSubmit={handleUpload} className="space-y-4">

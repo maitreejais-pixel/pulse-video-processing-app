@@ -27,10 +27,17 @@ export default function Dashboard() {
     const fetchVideoStatus = async () => {
       try {
         const token = localStorage.getItem("token");
+
+        // 1. Define the dynamic URL
+        const API_BASE_URL =
+          import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+        // 2. Use the variable in the request
         const res = await axios.get(
-          `http://localhost:5000/api/videos/${currentVideoId}`,
-          { headers: { Authorization: `Bearer ${token}` } }, // Added token for security
+          `${API_BASE_URL}/api/videos/${currentVideoId}`,
+          { headers: { Authorization: `Bearer ${token}` } },
         );
+
         setStatus(res.data.status);
         setProgress(res.data.progress || 0);
       } catch (err) {

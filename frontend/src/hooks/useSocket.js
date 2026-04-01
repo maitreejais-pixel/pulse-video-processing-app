@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { io } from "socket.io-client"; // Ensure this is installed: npm install socket.io-client
+import { io } from "socket.io-client";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 export const useSocket = (videoId) => {
   const [progress, setProgress] = useState(0);
@@ -10,7 +11,7 @@ export const useSocket = (videoId) => {
     if (!videoId) return;
 
     // 2. Connect to the backend
-    const socket = io("http://localhost:5000");
+    const socket = io(API_BASE_URL);
 
     // 3. Join the specific room for this video
     socket.emit("join-room", videoId);

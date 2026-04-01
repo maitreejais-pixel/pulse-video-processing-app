@@ -1,5 +1,7 @@
 import { Play } from "lucide-react";
 import React from "react";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 export default function VideoPlayer({ videoId }) {
   if (!videoId) return null;
 
@@ -11,7 +13,7 @@ export default function VideoPlayer({ videoId }) {
       <video
         controls
         className="w-full rounded-lg shadow-lg bg-black"
-        src={`http://localhost:5000/api/stream/${videoId}`}
+        src={`${API_BASE_URL}/api/stream/${videoId}`}
       >
         Your browser does not support the video tag.
       </video>
