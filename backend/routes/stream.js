@@ -10,6 +10,13 @@ router.get("/:id", auth, async (req, res) => {
     const video = await Video.findById(req.params.id);
     if (!video) return res.status(404).send("Video not found");
 
+    const isOwner = video.uploadedBy.toString() === req.user._id.toString();
+    const isAdmin = req.user.role?.name === "admin";
+
+    if (!isOwner && !isAdmin) {
+      return res.status(403).json({ error: "Unauthorized stream access" });
+    }
+
     const videoPath = path.join(__dirname, "..", video.filepath);
     const videoSize = fs.statSync(videoPath).size;
     const range = req.headers.range;
