@@ -25,8 +25,10 @@ router.get("/:id", auth, async (req, res) => {
     if (!video) return res.status(404).json({ error: "Video not found" });
 
     // --- THE SECURITY CHECK ---
-    // This compares the video's owner ID to the ID in the user's Token
-    if (video.uploadedBy.toString() !== req.user._id.toString()) {
+    const isOwner = video.uploadedBy.toString() === req.user._id.toString();
+    const isAdmin = req.user.role?.name === "admin";
+
+    if (!isOwner && !isAdmin) {
       return res
         .status(403)
         .json({ error: "Unauthorized access to this video" });
@@ -45,7 +47,10 @@ router.delete("/:id", auth, async (req, res) => {
     if (!video) return res.status(404).json({ error: "Video not found" });
 
     // SECURITY: Only the owner can delete their own videos
-    if (video.uploadedBy.toString() !== req.user._id.toString()) {
+    const isOwner = video.uploadedBy.toString() === req.user._id.toString();
+    const isAdmin = req.user.role?.name === "admin";
+
+    if (!isOwner && !isAdmin) {
       return res
         .status(403)
         .json({ error: "Unauthorized to delete this video" });
