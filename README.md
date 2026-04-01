@@ -6,7 +6,8 @@ PULSE is a full-stack video processing platform that enables users to upload vid
 
 ## 🚀 Live Application
 
-🔗 https://your-railway-app-url.up.railway.app
+🔗  https://pulse-app-v0x9.onrender.com
+🔗  https://pulse-frontend-1wzo.onrender.com
 
 ---
 
