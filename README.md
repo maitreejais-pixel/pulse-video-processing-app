@@ -120,7 +120,7 @@ npm run dev
 
 ## 🚀 Deployment
 
-The entire application is deployed on Railway as a **single service**, where the React frontend is served through the Express backend.
+The application follows a decoupled architecture, deployed on Render as two separate services: a Vite-React frontend (Static Site) and a Node.js/Express backend (Web Service), communicating via a secure REST API with CORS configuration.
 
 ---
 
